@@ -3,12 +3,14 @@
 python diff_counter.py seq1.fas seq2.fas
 Both sequences much be in fasta
 """
-
-
 import sys
+import os
+
 seqfi1 = sys.argv[1]
 seqfi2 = sys.argv[2]
 
+file1_name = os.path.basename(seqfi1).split('/')[-1]
+file2_name = os.path.basename(seqfi2).split('/')[-1]
 
 def fasta_as_string(filename):
     fi = open(filename)
@@ -46,6 +48,8 @@ differences = open("differences.csv", "w")
 keylist = list(diff_dict.keys())
 keylist.sort()
 
+differences.write("positions, " + file1_name + ", " + file2_name + "\n")
+
 for i in keylist:
     diff = diff_dict[i]
     if set(diff).issubset(bases):
@@ -55,4 +59,3 @@ for i in keylist:
 differences.close()
 
 print("Of those {d} sites, {ng} are not a gap or an ambiguity code in one taxon".format(d=len(diff_dict), ng=not_gap_diff))
-
