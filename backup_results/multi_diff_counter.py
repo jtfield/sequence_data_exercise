@@ -34,7 +34,7 @@ def main():
     ref_fi = ref_fi.strip(".fasta")
 
     summary = open(abs_outdir + "/diff_summary_" + str(true_fi) + "_" + str(ref_fi) + ".csv", "w")
-    summary.write("taxon_name, ref_name, diffs_to_true")
+    summary.write("taxon_name, ref_name, diffs_to_true\n")
 
     true_seqs_contents = open(args.true_seqs).read()
     ref_seqs_contents = open(args.ref_seqs).read()
