@@ -28,7 +28,7 @@ def main():
 
     ax=fig.add_axes([0,0,1,1])
 
-    ax.scatter(data_table['diffs_to_true'], data_table['distance'])
+    ax.scatter(data_table['diffs_to_true_matching_ref'], data_table['distance'])
 
     plt.show()
 

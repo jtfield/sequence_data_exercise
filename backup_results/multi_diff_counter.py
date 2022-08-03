@@ -91,6 +91,7 @@ def main():
 
                     bases=set(['a','t','g','c'])
                     not_gap_diff = 0
+                    not_gap_diff_matching_ref = 0
 
                     differences = open(abs_outdir + "/differences_" + true_name + ".csv", "w")
                     unam_differences = open(abs_outdir + "/unambig_differences_" + true_name + ".csv", "w")
@@ -106,15 +107,17 @@ def main():
                         if set(diff).issubset(bases):
                             not_gap_diff += 1
                             unam_differences.write("{i},{b1},{b2},{b3}\n".format(i=i, b1=diff[0], b2=diff[1], b3=diff[2]))
+                            if diff[1] == diff[2]:
+                                not_gap_diff_matching_ref += 1
                         differences.write("{i},{b1},{b2},{b3}\n".format(i=i, b1=diff[0], b2=diff[1], b3=diff[2]))
 
                     differences.close()
                     unam_differences.close()
 
-                    print("Of those {d} sites, {ng} are not a gap or an ambiguity code in one taxon".format(d=len(diff_dict), ng=not_gap_diff))
+                    print("Of those {d} sites, {ng} are not a gap or an ambiguity code in one taxon. Of the unambiguous sites, {rb} sites match the ref site".format(d=len(diff_dict), ng=not_gap_diff, rb=not_gap_diff_matching_ref))
                 # summary = open("diff_summary_" + str(true_fi) + "_" + str(ref_fi) + ".txt", "w")
 
-                    summary.write("{t}, {r}, {d}\n".format(t=true_name, r=query_fi, d=not_gap_diff))
+                    summary.write("{t},{r},{d},{b}\n".format(t=true_name, r=ref_name, d=not_gap_diff, b=not_gap_diff_matching_ref))
 
 
     summary.close()

@@ -16,7 +16,7 @@ def parse_args():
         description='Combine summary difference files and add distance metrics.')
     # parser.add_argument('--metadata_csv', default=False, help='metadata csv with info on samples from the tree.')
     parser.add_argument('--summary_dir', help='Directory of csv files of the summaries of differences.')
-    parser.add_argument('--dist_csv', help='csv file of distances between taxa in the summary files.')
+    # parser.add_argument('--dist_csv', help='csv file of distances between taxa in the summary files.')
     # parser.add_argument('--remove_from_names', default='_removed', help='a string you want to remove from the names in your table.')
     return parser.parse_args()
 
