@@ -1,0 +1,6 @@
+#run the multi_diff_counter.py on all your ref alignments and the "true" alignment that contains the references
+multi_diff_counter.py
+
+compare_diffs_to_ref.py
+
+

@@ -42,7 +42,7 @@ def main():
     # query_fi = query_fi.strip(".fasta")
     #
     summary = open(abs_outdir + "/diff_summary_" + str(true_fi) + "_ref_" + str(ref_name) + ".csv", "w")
-    summary.write("taxon_name, ref_name, diffs_to_true, diffs_to_true_matching_ref\n")
+    summary.write("taxon_name,ref_name,all_diffs,diffs_to_true,diffs_to_true_matching_ref\n")
     #
     for chunk in split_query_seqs:
         if len(chunk) > 1:
@@ -117,7 +117,7 @@ def main():
                     print("Of those {d} sites, {ng} are not a gap or an ambiguity code in one taxon. Of the unambiguous sites, {rb} sites match the ref site".format(d=len(diff_dict), ng=not_gap_diff, rb=not_gap_diff_matching_ref))
                 # summary = open("diff_summary_" + str(true_fi) + "_" + str(ref_fi) + ".txt", "w")
 
-                    summary.write("{t},{r},{d},{b}\n".format(t=true_name, r=ref_name, d=not_gap_diff, b=not_gap_diff_matching_ref))
+                    summary.write("{t},{r},{ad},{d},{b}\n".format(t=true_name, r=ref_name, ad=len(diff_dict), d=not_gap_diff, b=not_gap_diff_matching_ref))
 
 
     summary.close()
