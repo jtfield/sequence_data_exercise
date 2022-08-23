@@ -17,6 +17,7 @@ def parse_args():
         description='Pull the distances from a all-to-all distances csv file.')
     parser.add_argument('--dist_csv', help='csv file of distances between taxa in the summary files.')
     parser.add_argument('--summary_csv', help='csv file of nucleotide differences summaries.')
+    parser.add_argument('--output_csv', default='updated_summary_diffs.csv', help='csv with data from both inputs.')
     return parser.parse_args()
 
 def main():
@@ -62,7 +63,7 @@ def main():
 
     # print(summary_table)
 
-    summary_table.to_csv('updated_summary_diffs.csv')
+    summary_table.to_csv(args.output_csv)
 
 
 if __name__ == '__main__':

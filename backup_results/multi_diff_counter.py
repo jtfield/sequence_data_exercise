@@ -41,8 +41,8 @@ def main():
     # query_fi = query_fi.strip(".aln")
     # query_fi = query_fi.strip(".fasta")
     #
-    summary = open(abs_outdir + "/diff_summary_" + str(true_fi) + "_ref_" + str(ref_name) + ".csv", "w")
-    summary.write("taxon_name,ref_name,all_diffs,diffs_to_true,diffs_to_true_matching_ref\n")
+    summary = open(abs_outdir + "/diff_summary_query" + str(true_fi) + "_ref_" + str(ref_name) + ".csv", "w")
+    summary.write("taxon_name,ref_name,all_unambig_identical,all_ambiguous_diffs,unambiguous_diffs_to_true,unambiguous_diffs_to_true_matching_ref\n")
     #
     for chunk in split_query_seqs:
         if len(chunk) > 1:
@@ -81,15 +81,21 @@ def main():
 
                     assert(len(ref_based_seq) == len(true_seq) == len(true_ref_seq))
 
+                    bases=set(['a','t','g','c'])
                     diff_dict = {}
+                    identical_unambiguous_bases = 0
+
                     for i, char in enumerate(true_seq):
                         if char.lower() != ref_based_seq[i].lower():
                             diff_dict[i] = (char.lower(), ref_based_seq[i].lower(), true_ref_seq[i].lower())
 
+                        elif char.lower() == ref_based_seq[i].lower():
+                            if char.lower() in bases:
+                                identical_unambiguous_bases+=1
+
 
                     print("The sequences differ at {d} sites".format(d=len(diff_dict)))
 
-                    bases=set(['a','t','g','c'])
                     not_gap_diff = 0
                     not_gap_diff_matching_ref = 0
 
@@ -117,7 +123,7 @@ def main():
                     print("Of those {d} sites, {ng} are not a gap or an ambiguity code in one taxon. Of the unambiguous sites, {rb} sites match the ref site".format(d=len(diff_dict), ng=not_gap_diff, rb=not_gap_diff_matching_ref))
                 # summary = open("diff_summary_" + str(true_fi) + "_" + str(ref_fi) + ".txt", "w")
 
-                    summary.write("{t},{r},{ad},{d},{b}\n".format(t=true_name, r=ref_name, ad=len(diff_dict), d=not_gap_diff, b=not_gap_diff_matching_ref))
+                    summary.write("{t},{r},{ui},{ad},{d},{b}\n".format(t=true_name, r=ref_name, ui=identical_unambiguous_bases ,ad=len(diff_dict), d=not_gap_diff, b=not_gap_diff_matching_ref))
 
 
     summary.close()
