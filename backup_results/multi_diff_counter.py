@@ -31,11 +31,12 @@ def main():
 
     ref_name = query_fi.strip('_removed.aln')
 
-    outdir_name = "differences_raw_data_ref_" + ref_name
+    # outdir_name = "differences_raw_data_ref_" + ref_name
     true_fi = true_fi.strip(".fasta")
     # outdir_name = outdir_name.strip('.csv').strip('.aln')
-    data_outdir = os.mkdir(outdir_name)
-    abs_outdir = os.path.abspath(outdir_name)
+    # data_outdir = os.mkdir(outdir_name)
+    # abs_outdir = os.path.abspath(outdir_name)
+    abs_outdir = os.getcwd()
 
     # query_fi = query_fi.strip(".fas")
     # query_fi = query_fi.strip(".aln")
@@ -99,8 +100,8 @@ def main():
                     not_gap_diff = 0
                     not_gap_diff_matching_ref = 0
 
-                    differences = open(abs_outdir + "/differences_" + true_name + ".csv", "w")
-                    unam_differences = open(abs_outdir + "/unambig_differences_" + true_name + ".csv", "w")
+                    differences = open(abs_outdir + "/ambig_differences_query_" + true_name + "_ref_" + ref_name + ".csv", "w")
+                    unam_differences = open(abs_outdir + "/unambig_differences_query_" + true_name + "_ref_" + ref_name + ".csv", "w")
 
                     keylist = list(diff_dict.keys())
                     keylist.sort()
